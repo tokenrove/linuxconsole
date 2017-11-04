@@ -134,5 +134,8 @@
 #ifndef SERIO_EASYPEN
 # define SERIO_EASYPEN		0x3f
 #endif
+#ifndef SERIO_WACOM_V
+# define SERIO_WACOM_V		0x42
+#endif
 
 #endif

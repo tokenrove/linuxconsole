@@ -622,6 +622,17 @@ static int wacom_iv_init(int fd, unsigned long *id, unsigned long *extra)
 	return 0;
 }
 
+static int wacom_v_init(int fd, unsigned long *id, unsigned long *extra)
+{
+	if (write(fd, "BA19\r", 5) != 5)
+		return -1;
+
+	usleep(100 * 1000);
+
+	setline(fd, CS8, B19200);
+	return 0;
+}
+
 struct input_types {
 	const char *name;
 	const char *name2;
@@ -774,6 +785,9 @@ static struct input_types input_types[] = {
 { "--wacom_iv",		"-wacom_iv",	"Wacom protocol 4 tablet",
 	B9600, CS8 | CRTSCTS,
 	SERIO_WACOM_IV,		0x00,	0x00,	0,	wacom_iv_init },
+{ "--wacom_v",		"-wacom_v",	"Wacom protocol 5 tablet",
+	B9600, CS8 | CRTSCTS,
+	SERIO_WACOM_V,		0x00,	0x00,	0,	wacom_v_init },
 { NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL }
 };
 
